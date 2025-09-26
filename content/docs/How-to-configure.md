@@ -1,3 +1,9 @@
++++
+title = 'How to Configure OpenWayback'
+date = '2025-09-26T21:03:00+10:00'
+draft = false
++++
+
 # Configuring OpenWayback
 This document outlines the core configuration element needed to get OpenWayback up and running, including building your CDX index.
 
