@@ -1,37 +1,39 @@
-OpenWayback by default assumes deployment as ROOT context (ROOT.war) with an AccessPoint called wayback. The default URL for accessing OpenWayback is: `http://localhost:8080/wayback/`.
++++
+title = 'Deploying in a Non-ROOT Context'
+date = '2025-09-26T21:03:00+10:00'
+draft = false
++++
 
-OpenWayback can also be installed in a non-ROOT context (e.g. mycontext). For this `wayback.xml` needs to be configured to accordingly. The default AccessPoint URL would then be `http://localhost:8080/mycontext/wayback/`.
+By default OpenWayback expects to run as the `ROOT` webapp with the `/wayback/` access point (`http://localhost:8080/wayback/`). To deploy under a different context (e.g. `/mycontext`), update `wayback.xml` accordingly.
 
-### Configuring wayback.xml for deployment in a non-ROOT context
-
-Edit `wayback.xml` as follows to add `wayback.url.context` and change the `wayback.url.prefix` to include `mycontext`:
+## Update base URL properties
 
 ```xml
-  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="properties">
-      <value>
-        ...
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  <property name="properties">
+    <value>
       wayback.url.scheme=http
       wayback.url.host=localhost
       wayback.url.port=8080
       wayback.url.context=mycontext
       wayback.url.prefix=${wayback.url.scheme}://${wayback.url.host}:${wayback.url.port}/${wayback.url.context}
-      </value>
-    </property>
-  </bean>
+    </value>
+  </property>
+</bean>
 ```
 
-Then in the AccessPoint bean in `wayback.xml`, change `accessPointPath`, `replayPrefix`, `queryPrefix`, `staticPrefix`, and `replayURIPrefix` as follows:
+## Adjust the access point
 
 ```xml
-  <bean name="standardaccesspoint" class="org.archive.wayback.webapp.AccessPoint">
-    <property name="accessPointPath" value="/wayback/"/>
-    ...
-    <property name="replayPrefix" value="/${wayback.url.context}/wayback/" />
-    <property name="queryPrefix" value="/${wayback.url.context}/wayback/" />
-    <property name="staticPrefix" value="/${wayback.url.context}/wayback/" />
-    ...
-    <property name="replayURIPrefix" value="/${wayback.url.context}/wayback/"/>
-    ...
+<bean name="standardaccesspoint" class="org.archive.wayback.webapp.AccessPoint">
+  <property name="accessPointPath" value="/wayback/" />
+  ...
+  <property name="replayPrefix" value="/${wayback.url.context}/wayback/" />
+  <property name="queryPrefix" value="/${wayback.url.context}/wayback/" />
+  <property name="staticPrefix" value="/${wayback.url.context}/wayback/" />
+  ...
+  <property name="replayURIPrefix" value="/${wayback.url.context}/wayback/" />
+</bean>
 ```
-Restart Tomcat.
+
+Restart Tomcat to pick up the new context.

@@ -2,6 +2,10 @@ baseURL = 'https://wayback.dev'
 languageCode = 'en-us'
 title = 'Wayback Machine Tools Documentation'
 theme = 'hextra'
+enableRobotsTXT = true
+
+[outputs]
+  home = ['HTML', 'RSS', 'SITEMAP']
 
 [markup.goldmark.renderer]
 unsafe = true
@@ -11,6 +15,10 @@ unsafe = true
     name = "Documentation"
     pageRef = "/docs"
     weight = 10
+  [[menu.main]]
+    name = "Install"
+    pageRef = "/docs/How-to-install"
+    weight = 15
   [[menu.main]]
     name = "About"
     pageRef = "/about"

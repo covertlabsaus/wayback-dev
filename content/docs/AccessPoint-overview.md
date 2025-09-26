@@ -1,36 +1,42 @@
-OpenWayback [[Advanced configuration]]
++++
+title = 'AccessPoint Overview'
+date = '2025-09-26T21:03:00+10:00'
+draft = false
++++
 
-## AccessPoint overview
+OpenWayback routes traffic through **access points**. You can run multiple access points to expose the same collection under different URL prefixes or ports (configure Tomcat accordingly).
 
-OpenWayback uses access points to handle incoming requests. There can be multiple access points each with a different context (URL prefix) or even operating on different ports (Tomcat needs to be configured accordingly). 
+## Required components
 
-An AccessPoint's configuration must specify the following implementations:
+Each access point must define implementations for:
 
-* **collection** - the specific WaybackCollection being exposed via this AccessPoint.
-* **query** - responsible for generating user visible content (HTML, XML, etc) in response to user queries.
-* **replay** - responsible for determining the appropriate ReplayRenderer implementation based on the user's request and the particular document to be replayed.
-* **uriConverter** - responsible for constructing Replay URLs from records matching user queries. See Replay Modes below.
-* **parser** - responsible for translating incoming requests into WaybackRequests. See Replay Modes below.
+- `collection` — the `WaybackCollection` being exposed.
+- `query` — renders search results and captures user input.
+- `replay` — chooses the correct `ReplayRenderer` per request.
+- `uriConverter` — builds replay URLs for matched records (see replay modes).
+- `parser` — turns incoming HTTP requests into `WaybackRequest` objects.
 
-To specify which request the access point handles you specify:
+## Request mapping
 
-* **accessPointPath** - typically of the form `http://<hostname>/<path>/`. This will cause the access point to handle requests coming in to `path`.
-* **internalPort** - the port that this access point should be listening for. It may be omitted if `accessPointPath` explicitly includes the port.
+- `accessPointPath` — URL prefix, e.g. `http://host/context/`.
+- `internalPort` — optional explicit port if it is not part of the path.
 
-An AccessPoint's configuration may optionally specify the following, but must specify at least one of replayPrefix, queryPrefix, or staticPrefix:
+## Optional settings
 
-* **exception** - an implementation responsible for generating error pages to users.
-* **configs** - a Properties associating arbitrary key-value pairs which are accessible to .jsp files responsible for generating the UI.
-* **exclusionFactory** - an implementation specifying what documents should be accessible within this AccessPoint.
-* **authentication** - an implementation specifying who is allowed to connect to this AccessPoint.
-* **replayPrefix** - a String URL prefix indicating the host, port, and path to the correct Replay AccessPoint. If unspecified, defaults to queryPrefix, then staticPrefix.
-* **queryPrefix** - a String URL prefix indicating the host, port, and path to the correct Query AccessPoint. If unspecified, defaults to staticPrefix, then replayPrefix.
-* **staticPrefix** - a String URL prefix indicating the host, port, and path to static content used within the UI. If unspecified, defaults to queryPrefix, then replayPrefix.
-* **livewebPrefix** - a String URL prefix indicating the host, port, and path to an AccessPoint configured with Live Web fetching.
-* **locale** - a specific Locale to use for all requests within this AccessPoint, overriding the users preferred Locale as specified by their web browser.
-* **exactHostMatch** - true or false, if true, only returns results exactly matching a given request hostname (case insensitive). Default is false.
-* **exactSchemeMatch** - true or false, if true, only returns results exactly matching a given request scheme. Default is true.
+Define at least one of `replayPrefix`, `queryPrefix`, or `staticPrefix`. Additional options include:
 
-AccessPoints can be used to provide different levels and types of access to the same collection for different users. For example, you can provide both Proxy and Archival URL mode access to a single collection by defining two AccessPoints with different Replay User Interfaces but the same WaybackCollection. Using AccessPoints, you can also provide different levels of access to a collection. For example, users within a particular subnet may be able to access all documents within a collection via one AccessPoint, but users outside that subnet may be restricted to viewing documents allowed by a web sites current robots.txt file.
+- `exception` — custom error page handler.
+- `configs` — key/value pairs exposed to JSP templates.
+- `exclusionFactory` — controls which documents are visible.
+- `authentication` — enforces user access rules.
+- `replayPrefix` — base URL for replay requests (defaults to `queryPrefix`, then `staticPrefix`).
+- `queryPrefix` — base URL for query requests (defaults to `staticPrefix`, then `replayPrefix`).
+- `staticPrefix` — base URL for shared UI assets (defaults to `queryPrefix`, then `replayPrefix`).
+- `livewebPrefix` — points to an access point configured for live web fetching.
+- `locale` — forces a locale regardless of browser preferences.
+- `exactHostMatch` — when true, restrict results to the exact hostname (case insensitive).
+- `exactSchemeMatch` — when true, require the same scheme (defaults to `true`).
 
-Please refer to `wayback.xml` within the `wayback.war` file for detailed example AccessPoint configurations.
+Access points let you tailor access for different audiences. For instance, expose both proxy and archival URL modes simultaneously, or restrict external users to robots.txt compliant content while internal users see everything.
+
+See `wayback.xml` inside `wayback.war` for complete configuration samples.

@@ -1,46 +1,50 @@
-OpenWayback [[Advanced configuration]]
++++
+title = 'Configuring ZipNumCluster'
+date = '2025-09-26T21:03:00+10:00'
+draft = false
++++
 
-## Configuring ZipNumCluster
+See Aaron Swartz's post on [ZipNum and CDX cluster merging](http://aaron.blog.archive.org/2013/05/28/zipnum-and-cdx-cluster-merging/) for background.
 
-For information on ZipNum format http://aaron.blog.archive.org/2013/05/28/zipnum-and-cdx-cluster-merging/
-
-Enable and edit CDXCollection.xml as follows:
+Enable the `ZipNumClusterSearchResultSource` inside `CDXCollection.xml`:
 
 ```xml
-    <property name="resourceIndex">
-      <bean class="org.archive.wayback.resourceindex.LocalResourceIndex">
-        <property name="canonicalizer" ref="waybackCanonicalizer" />
-        <property name="source">
-        <bean class="org.archive.wayback.resourceindex.ZipNumClusterSearchResultSource">
-                <property name="cluster">
-                        <bean class="org.archive.format.gzip.zipnum.ZipNumCluster">
-                                <property name="summaryFile" value="/<PATH-TO-SUMMARYFILE>"/>
-                                <property name="locFile" value="/<PATH-TO-LOCFILE>" />
-                        </bean>
-                </property>
-                <property name="params">
-                        <bean class="org.archive.format.gzip.zipnum.ZipNumParams"/>
-                </property>
-        </bean>
+<property name="resourceIndex">
+  <bean class="org.archive.wayback.resourceindex.LocalResourceIndex">
+    <property name="canonicalizer" ref="waybackCanonicalizer" />
+    <property name="source">
+      <bean class="org.archive.wayback.resourceindex.ZipNumClusterSearchResultSource">
+        <property name="cluster">
+          <bean class="org.archive.format.gzip.zipnum.ZipNumCluster">
+            <property name="summaryFile" value="/<PATH-TO-SUMMARYFILE>" />
+            <property name="locFile" value="/<PATH-TO-LOCFILE>" />
+          </bean>
         </property>
-        <property name="maxRecords" value="100000" />
-        <property name="dedupeRecords" value="true" />    
+        <property name="params">
+          <bean class="org.archive.format.gzip.zipnum.ZipNumParams" />
+        </property>
       </bean>
     </property>
+    <property name="maxRecords" value="100000" />
+    <property name="dedupeRecords" value="true" />
+  </bean>
+</property>
 ```
-<br/>
-**Summary file format**
 
-Summary file consists of 4 columns separated by tab as follows:<br/>
-1. The first line of each chunk <br/>
-2. Chunk name (or shard name) <br/>
-3. Offset: the starting byte-offset of the chunk <br/>
-4. Length: the length of the chunk <br/><br/>
+### Summary file format
 
-**Loc file format**
+Tab-separated columns:
 
-Loc file consists of 2 columns separated by tab as follows: <br/>
-1. Chunk name (or shard name) <br/>
-2. Chunk URL: e.g. `hdfs://url` or `http://url` <br/><br/>
+1. First capture line in the chunk
+2. Chunk (shard) name
+3. Byte offset where the chunk starts
+4. Chunk length in bytes
 
-For more information on how to generate summary file using hadoop, please see link at the top.
+### Loc file format
+
+Tab-separated columns:
+
+1. Chunk (shard) name
+2. Chunk URL: e.g. `hdfs://...` or `http://...`
+
+Generate summary and loc files with the Hadoop tools linked in the article above.

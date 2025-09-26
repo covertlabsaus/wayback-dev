@@ -1,31 +1,24 @@
-# Advanced configuration
++++
+title = 'Advanced Configuration'
+date = '2025-09-26T21:03:00+10:00'
+draft = false
++++
 
-This page deals with advanced configuration options. Many of these require a considerable understanding of how OpenWayback operates under the hood. For the basics of getting OpenWayback up and running, see [[How to configure]].
+This section covers configuration tasks that go beyond the initial setup. If you are just getting started, read the [basic configuration guide](/docs/How-to-configure) first.
 
-## Configuring indexes
+## Index tuning
 
-I.e. how OpenWayback goes from an URL being requested and to serving up either a list of matches or the actual content captured for that URL. The topics discussed in the basic configuration are mostly related to this. 
+Learn how OpenWayback maps incoming URLs to archived captures and how to optimise search behaviour:
 
-Additional topics on this are:
+- [Configuring ZipNumCluster](/docs/Configuring-ZipNumCluster)
 
-* [[Configuring ZipNumCluster]]
+## Custom access points
 
-## Configuring access points
+OpenWayback can expose the same collection through multiple access points (proxy mode, Memento, custom replay UIs, etc.). The default `AccessPoint` handler can be customised with different renderers and parsers, or replaced entirely via a [WAR overlay](/docs/Creating-a-WAR-overlay).
 
-OpenWayback uses access points to handle incoming request. There can be multiple access points each with a different context (URL prefix) or even operating on different ports (Tomcat needs to be configured accordingly). 
+- [AccessPoint overview](/docs/AccessPoint-overview)
+- [Creating a WAR overlay](/docs/Creating-a-WAR-overlay)
 
-By default only the standard `AccessPoint` handler is enabled. It performs the basic OpenWayback functionality that you are probably already familiar with. 
+## Other scenarios
 
-The behavior of the standard AccessPoint can however be modified by specifying renderers and parsers. 
-
-Alternative and additional access point configurations are provided in OpenWayback for things like [Memento](http://mementoweb.org/) support, proxy mode and more. It is also possible to add your own request handler if you so choose. This is best done via a [WAR overlay](Creating-a-WAR-overlay.html).
-
-For more see:
-
-* [[AccessPoint overview]]
-* [[Creating a WAR overlay]]
-
-## Other configuration
-
-* [[Deploying OpenWayback in non-ROOT Context]]
-
+- [Deploying OpenWayback in a non-ROOT context](/docs/Deploying-OpenWayback-in-non-ROOT-Context)

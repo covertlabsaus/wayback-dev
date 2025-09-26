@@ -1,5 +1,5 @@
 +++
-title = 'How to Configure OpenWayback'
+title = 'How to Configure'
 date = '2025-09-26T21:03:00+10:00'
 draft = false
 +++
@@ -7,9 +7,9 @@ draft = false
 # Configuring OpenWayback
 This document outlines the core configuration element needed to get OpenWayback up and running, including building your CDX index.
 
-For advanced options see [[Advanced configuration]] 
+For advanced options see [Advanced configuration](/docs/Advanced-configuration) 
 
-As described in [[How to install]] OpenWayback typically runs inside a [Tomcat](http://tomcat.apache.org/) web server deployed on a Linux or Unix system. The following documentation assumes this is the case and that the reader is generally familiar with both Tomcat and the [bash command shell](https://www.gnu.org/software/bash/) commonly found on Linux and Unix operating systems.
+As described in [How to install](/docs/How-to-install) OpenWayback typically runs inside a [Tomcat](http://tomcat.apache.org/) web server deployed on a Linux or Unix system. The following documentation assumes this is the case and that the reader is generally familiar with both Tomcat and the [bash command shell](https://www.gnu.org/software/bash/) commonly found on Linux and Unix operating systems.
 
 ## The configuration file
 
@@ -54,7 +54,7 @@ To get started with OpenWayback you only need to edit a few of the properties sp
 
  * **wayback.url.port** The port on which Tomcat is listening. By default this is `8080` which is also the default port for Tomcat.
 
- * **wayback.url.prefix** Assembles the scheme, host name and port into an URL prefix. You do not need to edit this setting unless you are [deploying OpenWayback in a non-ROOT context](Deploying-OpenWayback-in-non-ROOT-Context.html).
+ * **wayback.url.prefix** Assembles the scheme, host name and port into an URL prefix. You do not need to edit this setting unless you are [deploying OpenWayback in a non-ROOT context](/docs/Deploying-OpenWayback-in-non-ROOT-Context).
 
 Setting these correctly is enough to get a small collection up and running in OpenWayback. When you restart Tomcat, OpenWayback will automatically index all the ARC and WARC files under `wayback.archivedir.1` and `wayback.archivedir.2` (this can take some time!). You can then view them in a browser at `http://localhost:8080/wayback` (or whatever you configured the scheme, host name and port to be).
 

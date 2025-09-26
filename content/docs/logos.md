@@ -1,19 +1,24 @@
-<head><title>Branding and logos</title></head> 
++++
+title = 'Branding and Logos'
+date = '2025-09-26T21:03:00+10:00'
+draft = false
++++
 
 ## Project name
 
-The project's name is *OpenWayback*. No space between the words and each word capitalized.
+Use **OpenWayback** (capital O and W, no space) in copy and UI.
 
-## Project logos
+## Logo assets
 
-The OpenWayback logo is available in two forms as seen below.   		
+Two official logos are available:
 
-![OpenWayback banner logo](images/OpenWayback-banner100.png) 
+- [Banner (EPS)](https://raw.githubusercontent.com/iipc/openwayback/master/src/site/resources/images/openwayback-banner.eps)
+- [Icon (EPS)](https://raw.githubusercontent.com/iipc/openwayback/master/src/site/resources/images/openwayback-logo-only.eps)
 
-[Download as an EPS file](images/openwayback-banner.eps)			
+For quick previews, the historical Wayback PNGs remain in the repository:
 
+![Wayback standard logo](https://raw.githubusercontent.com/iipc/openwayback/master/src/site/resources/images/WM-Standard.png)
 
+![Wayback shared logo](https://raw.githubusercontent.com/iipc/openwayback/master/src/site/resources/images/WM-Shared.png)
 
-![OpenWayback icon logo](images/OpenWayback-logo100.png)
- 
-[Download as an EPS file](images/openwayback-logo.eps)			
+Refer to the [IIPC branding guidelines](https://netpreserve.org/) for usage policies.
