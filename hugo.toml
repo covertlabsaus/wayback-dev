@@ -1,0 +1,38 @@
+baseURL = 'https://wayback.dev'
+languageCode = 'en-us'
+title = 'Wayback Machine Tools Documentation'
+theme = 'hextra'
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[menu]
+  [[menu.main]]
+    name = "Documentation"
+    pageRef = "/docs"
+    weight = 10
+  [[menu.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 20
+  [[menu.main]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/iipc/openwayback"
+    weight = 30
+
+[params]
+  description = "Documentation for Wayback Machine and OpenWayback tools"
+  displayUpdatedDate = true
+  DateFormat = "January 2, 2006"
+
+  [params.navbar]
+    displayTitle = true
+    displayLogo = false
+
+  [params.footer]
+    displayCopyright = true
+    displayPoweredBy = false
+
+  [params.editPage]
+    enable = false
